@@ -141,24 +141,28 @@ int main(){
     Parser_TF_OPS(&p,&om,&rsm);
 
     ShutingYard sy = ShutingYard_New(
-    PrecedenceMap_Make((Precedencer[]){
-        Precedencer_New(TOKEN_CUSTOM_ASS,1),
-        Precedencer_New(TOKEN_CUSTOM_ADD,3),
-        Precedencer_New(TOKEN_CUSTOM_MUL,4),
-        Precedencer_New(TOKEN_CUSTOM_NEG,6),
-        Precedencer_New(TOKEN_PARENTHESES_L,PRECEDENCE_BRACKL),
-        Precedencer_New(TOKEN_PARENTHESES_R,PRECEDENCE_BRACKR),
-        Precedencer_End
-    }),
-    ExecuteMap_Make((Executer[]){
-        Executer_New(TOKEN_CUSTOM_ASS,2,Handler_Ass),
-        Executer_New(TOKEN_CUSTOM_ADD,2,Handler_Add),
-        Executer_New(TOKEN_CUSTOM_MUL,2,Handler_Mul),
-        Executer_New(TOKEN_CUSTOM_NEG,1,Handler_Neg),
-        Executer_End
-    }));
+        PrecedenceMap_Make((Precedencer[]){
+            Precedencer_New(TOKEN_CUSTOM_ASS,1),
+            Precedencer_New(TOKEN_CUSTOM_ADD,3),
+            Precedencer_New(TOKEN_CUSTOM_MUL,4),
+            Precedencer_New(TOKEN_CUSTOM_NEG,6),
+            Precedencer_New(TOKEN_PARENTHESES_L,PRECEDENCE_BRACKL),
+            Precedencer_New(TOKEN_PARENTHESES_R,PRECEDENCE_BRACKR),
+            Precedencer_End
+        }),
+        ExecuteMap_Make((Executer[]){
+            Executer_New(TOKEN_CUSTOM_ASS,2,Handler_Ass),
+            Executer_New(TOKEN_CUSTOM_ADD,2,Handler_Add),
+            Executer_New(TOKEN_CUSTOM_MUL,2,Handler_Mul),
+            Executer_New(TOKEN_CUSTOM_NEG,1,Handler_Neg),
+            Executer_End
+        }),
+        PreexecuteMap_Make((Preexecuter[]){
+            Preexecuter_End
+        })
+    );
 
-    TokenMap tm = ShutingYard_Transform(&sy,&p.vec);
+    TokenMap tm = ShutingYard_Transform(&sy,&p);
     TokenMap_Print(&tm);
 
     ShutingYard_Execute(&sy,&tm,NULL);
