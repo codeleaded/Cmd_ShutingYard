@@ -136,7 +136,7 @@ int main(){
     
     Parser p = Parser_New();
 
-    Parser_Parse_cstr(&p,"a = 5 + 2 * 10 + -(2 * 4 + -3 * 5)");
+    Parser_Parse_CStr(&p,"a = 5 + 2 * 10 + -(2 * 4 + -3 * 5)",NULL);
     Parser_TF_Std(&p);
     Parser_TF_OPS(&p,&om,&rsm);
 
